@@ -5,6 +5,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/'
   },
   module: {
     rules: [
@@ -12,8 +13,18 @@ module.exports = {
         test: /\.scss$/,
         use: [
           'style-loader', 
-          'css-loader',   
-          'sass-loader',  
+          {
+            loader: 'css-loader',  
+            options: {
+              sourceMap: true,
+            },
+          }, 
+          {
+          loader: 'sass-loader',  
+          options: {
+            sourceMap: true,
+          },
+        }
         ],
       },
     ],
@@ -25,5 +36,10 @@ module.exports = {
     compress: true,
     port: 8080,
     hot: true,
+    liveReload: true,  
+    devMiddleware: {
+        publicPath: '/dist/',
+      },
   },
+  devtool: 'source-map',
 };

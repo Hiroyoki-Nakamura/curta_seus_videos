@@ -5,7 +5,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copia o arquivo package.json e pnpm-lock.yaml para o diretório de trabalho
-COPY package.json pnpm-lock.yaml ./
+COPY package.json ./
 
 # Instala pnpm globalmente
 RUN npm install -g pnpm
