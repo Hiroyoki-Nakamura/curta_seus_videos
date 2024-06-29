@@ -1,22 +1,22 @@
 services:
   mf_drawer:
     build:
-      context: ./mf_drawer
+      context: ./front/mf_drawer
     ports:
       - "8000:3000"
     volumes:
-      - ./mf_drawer/src:/app/src
+      - ./front/mf_drawer/src:/app/src
     depends_on:
       - drawer_services
       - videos_services
 
   mf_videos:
     build:
-      context: ./mf_videos
+      context: ./front/mf_videos
     ports:
       - "8001:3000"
     volumes:
-      - ./mf_videos/src:/app/src
+      - ./front/mf_videos/src:/app/src
     depends_on:
       - drawer_services
       - videos_services

@@ -49,12 +49,12 @@ jspm_packages/
 .eslintcache
 
 # Microfrontend build outputs
-mf_drawer/dist
-mf_videos/dist
+front/mf_drawer/dist
+front/mf_videos/dist
 
 # Backend build outputs
-backend/video_service/dist
-backend/favorite_service/dist
+bff/drawer_services/dist
+bff/videos_services/dist
 
 # Docker files
 docker-compose.override.yml
