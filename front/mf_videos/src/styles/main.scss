@@ -1,0 +1,17 @@
+@import "../../../../shared-styles-repo/_variables.scss";
+
+body {
+    width: 74%;
+    padding: 2rem;
+    background-color: $primary-color;
+    border: solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) ;
+}
+
+#container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $grid-gap;
+    padding: $grid-padding;
+}
+
