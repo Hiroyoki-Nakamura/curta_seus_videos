@@ -5,7 +5,8 @@ export class GridContainer {
     private currentPage: number;
     private videosPerPage: number;
     private allVideos: {title: string, url: string}[] = [];
-    private displayedVideos: {title: string, url: string}[] = []
+    private displayedVideos: {title: string, url: string}[] = [];
+    private paginationContainer!: HTMLDivElement;
 
     constructor(private containerId: string, private numGrids: number){
         this.grids = [];
@@ -24,7 +25,13 @@ export class GridContainer {
             container.appendChild(grid);
             this.grids.push(grid);
         }
+
+        
+    this.paginationContainer = document.createElement('div');
+    this.paginationContainer.id = 'pagination';
+    container.appendChild(this.paginationContainer);
     }
+
 
     public setVideos(videos: {title: string, url: string}[]) {
         this.allVideos = videos;
@@ -51,6 +58,44 @@ export class GridContainer {
             const videoComponent = new VideoContainer(videoData);
             grid.appendChild(videoComponent.getVideo())
         })
+        this.renderPagination()
+    }
+
+    private renderPagination() {
+        const allPages = Math.ceil(this.displayedVideos.length / this.videosPerPage);
+        this.paginationContainer.innerHTML = '';
+
+        const createPageButton = (page: number, text: string) => {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.className = (page === this.currentPage) ? 'active' : '';
+            button.addEventListener('click', () =>{
+                this.currentPage = page;
+                this.renderVideos();
+            })
+            return button;
+        }
+        if (allPages <= 3){
+            for (let i =1; i <= allPages; i++){
+                this.paginationContainer.appendChild(createPageButton(i, i.toString()));
+            }
+        } else {
+            if (this.currentPage > 1) {
+                this.paginationContainer.appendChild(createPageButton(1,'1'));
+                if (this.currentPage > 2) {
+                    this.paginationContainer.appendChild(createPageButton(this.currentPage -1, '...'))
+                }
+            }
+
+            this.paginationContainer.appendChild(createPageButton(this.currentPage, this.currentPage.toString()))
+
+            if(this.currentPage < allPages) {
+                if(this.currentPage < allPages -1) {
+                    this.paginationContainer.appendChild(createPageButton(this.currentPage + 1, '...'))
+                }
+                this.paginationContainer.appendChild(createPageButton(allPages, allPages.toString()))
+            }
+        }
     }
 
     public nextPage() {
