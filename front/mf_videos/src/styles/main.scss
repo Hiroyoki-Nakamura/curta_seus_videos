@@ -1,6 +1,5 @@
 
 $grid-gap: 10px;
-$grid-padding: 20px;
 
 $primary-color: white;
 $secondary-color: black;
@@ -17,7 +16,6 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: $grid-gap;
-    padding: $grid-padding;
 }
 
 #searchInput{
@@ -28,6 +26,37 @@ body {
 
 #searchButton {
     padding: 10px;
+}
+
+
+.video-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: solid;
+    margin: 20px 20px 0 0;
+}
+
+video {
+    width: 100%;
+    max-width: 200px;
+}
+
+.favorite {
+    padding: 0;
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.3 ease;
+}
+
+.favorite-active{
+    color: yellow;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 
