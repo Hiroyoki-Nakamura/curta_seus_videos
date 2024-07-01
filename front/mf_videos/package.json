@@ -1,12 +1,25 @@
 {
+  "name": "mf_videos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
+    "build": "webpack --mode production",
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
+      "dev": "ts-node-dev src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.14.9",
+    "sass": "^1.77.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
     "css-loader": "^7.1.2",
-    "node-sass": "^9.0.0",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",

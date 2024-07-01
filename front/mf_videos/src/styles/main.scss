@@ -1,4 +1,9 @@
-@import "../../../../shared-styles-repo/_variables.scss";
+
+$grid-gap: 10px;
+$grid-padding: 20px;
+
+$primary-color: white;
+$secondary-color: black;
 
 body {
     width: 74%;
@@ -14,4 +19,16 @@ body {
     gap: $grid-gap;
     padding: $grid-padding;
 }
+
+#searchInput{
+    width: 20%;
+    padding: 10px;
+    
+}
+
+#searchButton {
+    padding: 10px;
+}
+
+
 
