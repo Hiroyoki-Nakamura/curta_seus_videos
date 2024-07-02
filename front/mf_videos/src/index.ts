@@ -25,29 +25,5 @@ document.getElementById('searchButton')?.addEventListener('click', () => {
     gridContainer.searchVideos(query);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const favorite = document.getElementById('favorite') as HTMLElement;
-    console.log('ola');
-
-    if (favorite) {
-        console.log('Elemento favoriteStar encontrado');
-
-        favorite.addEventListener('click', () => {
-            console.log('Elemento favorito clicado');
-            if (favorite.classList.contains('favorite-active')) {
-                console.log('Removendo a classe active');
-                favorite.classList.remove('favorite-active');
-                favorite.classList.add('favorite');
-            } else {
-                console.log('Adicionando a classe active');
-                favorite.classList.remove('favorite');
-                favorite.classList.add('favorite-active');
-            }
-        });
-    } else {
-        console.log('Elemento favoriteStar não encontrado');
-    }
-});
-
 document.getElementById('nextPage')?.addEventListener('click', () => gridContainer.nextPage());
 document.getElementById('prevPage')?.addEventListener('click', () => gridContainer.prevPage());

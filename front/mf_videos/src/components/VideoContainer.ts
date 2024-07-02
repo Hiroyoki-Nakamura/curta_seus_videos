@@ -9,8 +9,8 @@ export class VideoContainer {
     }
 
     private render(){
-        const videoTitle = document.createElement('h3')
-        videoTitle.textContent = this.videoData.title;
+       /*  const videoTitle = document.createElement('h3') */
+       /*  videoTitle.textContent = this.videoData.title; */
         
         const videoContent = document.createElement('video');
         videoContent.src = this.videoData.url;
@@ -43,7 +43,7 @@ export class VideoContainer {
             }
         });
 
-        this.content.appendChild(videoTitle);
+        /* this.content.appendChild(videoTitle); */
         this.content.appendChild(videoContent);
         this.content.appendChild(this.favorite);
     }
