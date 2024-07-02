@@ -11,7 +11,7 @@ export class GridContainer {
     constructor(private containerId: string, private numGrids: number){
         this.grids = [];
         this.currentPage = 1;
-        this.videosPerPage = numGrids *3;
+        this.videosPerPage = numGrids * 3;
         this.initGrids();
     }
 
@@ -57,6 +57,15 @@ export class GridContainer {
             const grid = this.grids[index % this.numGrids];
             const videoComponent = new VideoContainer(videoData);
             grid.appendChild(videoComponent.getVideo())
+
+            const favorite = videoComponent.getFavorites();
+            favorite.addEventListener('click', () => {
+                if(videoComponent.isFavorite()) {
+                    favorite.classList.remove('favorite-active');
+                } else {
+                    favorite.classList.add('favorite-active');
+                }
+            })
         })
         this.renderPagination()
     }

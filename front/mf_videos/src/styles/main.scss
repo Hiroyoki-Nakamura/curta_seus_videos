@@ -36,6 +36,7 @@ body {
     text-align: center;
     border: solid;
     margin: 20px 20px 0 0;
+    position: relative;
 }
 
 video {
@@ -44,24 +45,27 @@ video {
 }
 
 .favorite {
-    padding: 0;
-    font-size: 20px;
-    color: gray;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
     cursor: pointer;
-    transition: color 0.3 ease;
+    color: gray; 
 }
 
-.favorite-active{
-    color: yellow;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+
+.favorite::before {
+    content: "\2606"; 
+}
+
+.favorite-active::before {
+    content: "\2605"; 
+    color: #f1c40f; 
 }
 
 #pagination {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     margin-top: 20px;
 }
 
