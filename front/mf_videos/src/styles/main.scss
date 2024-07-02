@@ -17,14 +17,28 @@ body {
     gap: $grid-gap;
 }
 
-#searchInput {
-    width: 20%;
-    padding: 10px;
+.search-container {
+    width: 100%;
+    position: relative;
 }
 
-#searchButton {
-    padding: 10px;
+#search-input {
+    width: 20%;
+    padding: 10px 40px 10px 10px;
+    font-size: 16px;
+    position: relative;
 }
+
+.search-icon {
+    position: absolute;
+    left: 250px;
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 20px;
+    color: #ccc;
+    pointer-events: none; 
+}
+
 
 .video-content {
     display: flex;
@@ -51,12 +65,12 @@ video {
 }
 
 .favorite::before {
-    content: "\2606"; /* Unicode character for empty star */
+    content: "\2606";
 }
 
 .favorite-active::before {
-    content: "\2605"; /* Unicode character for filled star */
-    color: #f1c40f; /* Color the star */
+    content: "\2605"; 
+    color: #f1c40f; 
 }
 
 #pagination {
