@@ -54,8 +54,12 @@ front/mf_videos/dist
 
 # Backend build outputs
 bff/drawer_services/dist
+bff/drawer_services/.env
 bff/videos_services/dist
+bff/videos_services/.env
 
 # Docker files
 docker-compose.override.yml
 .docker/
+
+.env
