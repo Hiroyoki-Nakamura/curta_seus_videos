@@ -63,7 +63,7 @@ export class GridContainer {
                 if(videoComponent.isFavorite()) {
                     favorite.classList.remove('favorite-active');
                 } else {
-                    favorite.classList.add('favorite-active');
+                    favorite.classList.add('favorite-active')
                 }
             })
         })
