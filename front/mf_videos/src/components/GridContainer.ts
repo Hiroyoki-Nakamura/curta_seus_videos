@@ -1,4 +1,5 @@
 import { VideoContainer } from "./VideoContainer";
+/* import { fetchVideosFromBFF } from '../services/searchVideos'; */
 
 export class GridContainer {
     private grids: HTMLDivElement[];
@@ -14,6 +15,15 @@ export class GridContainer {
         this.videosPerPage = numGrids * 3;
         this.initGrids();
     }
+
+/*     public async searchVideos(query: string) {
+        try {
+            const videos = await fetchVideosFromBFF(query);
+            this.setVideos(videos);
+        } catch (error) {
+            console.error('Erro ao buscar vídeos:', error);
+        }
+    } */
 
     private initGrids(){
         const container = document.getElementById(this.containerId);

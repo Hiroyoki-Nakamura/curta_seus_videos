@@ -2,11 +2,10 @@
   "name": "mf_videos",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
-    "dev": "ts-node-dev src/server.ts",
     "test": "jest",
     "test:watch": "jest --watch"
   },

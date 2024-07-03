@@ -1,7 +1,8 @@
 import './styles/main.scss'
 import { GridContainer } from './components/GridContainer';
+import axios from 'axios';
 
-const videos = [
+/* const videos = [
     {title: 'Video 1', url: 'url1'},
     {title: 'Video 2', url: 'url2'},
     {title: 'Video 3', url: 'url3'},
@@ -15,14 +16,26 @@ const videos = [
     {title: 'Video 11', url: 'url11'},
     {title: 'Video 12', url: 'url12'},
     {title: 'Video 13', url: 'url13'},
-]
+] */
 
 const gridContainer = new GridContainer('container', 4);
-gridContainer.setVideos(videos);
+/* gridContainer.setVideos(videos); */
 
-document.getElementById('searchButton')?.addEventListener('click', () => {
+/* document.getElementById('searchButton')?.addEventListener('click', () => {
     const query = (document.getElementById('searchInput') as HTMLInputElement).value;
     gridContainer.searchVideos(query);
+}); */
+
+document.getElementById('search-input')?.addEventListener('keypress', async (event) => {
+    if (event.key === 'Enter') {
+        const query = (document.getElementById('search-input') as HTMLInputElement).value;
+        try {
+            const response = await axios.get(`/videos?query=${query}`);
+            gridContainer.setVideos(response.data.videos);
+        } catch (error) {
+            console.error('Erro ao buscar vídeos:', error);
+        }
+    }
 });
 
 document.getElementById('nextPage')?.addEventListener('click', () => gridContainer.nextPage());
