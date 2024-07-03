@@ -2,11 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import videoRouter from './videoRouter'; 
 
+
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+import cors from 'cors';
 
+app.use(cors());
 // Use o router de vídeos
 app.use('/videos', videoRouter);
 
