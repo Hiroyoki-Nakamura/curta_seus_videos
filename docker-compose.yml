@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mf_drawer:
     build:
@@ -42,3 +44,5 @@ services:
     depends_on:
       - mf_drawer
       - mf_videos
+      - drawer_services
+      - videos_services
