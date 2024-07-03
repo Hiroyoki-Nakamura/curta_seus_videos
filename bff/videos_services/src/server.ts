@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 
 // Use o router de vídeos
 app.use('/videos', videoRouter);
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });

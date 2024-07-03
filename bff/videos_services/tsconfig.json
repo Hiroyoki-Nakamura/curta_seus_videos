@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./"
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*"] 
+    }
   },
-  "include": ["*.ts", "src/main.ts", "src/videosApi.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
