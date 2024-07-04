@@ -2,7 +2,7 @@ import { searchVideos } from './videosApi';
 
 const main = async () => {
     try {
-        const query = 'puppies';
+        const query = 'tigres';
         const videos = await searchVideos(query);
         console.log('Vídeos encontrados:', videos);
 

@@ -11,7 +11,7 @@
             }));
         } catch (error) {
             console.error('Erro ao buscar vídeos do BFF:', error);
-            return []; // Tratar o erro de forma adequada
+            return []; 
         }
     }
     

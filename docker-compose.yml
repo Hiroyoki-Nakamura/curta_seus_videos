@@ -34,6 +34,8 @@ services:
       context: ./bff/videos_services
     ports:
       - "3001:3000"
+    env_file:
+      - "./bff/.env"
 
   nginx:
     image: nginx:latest
