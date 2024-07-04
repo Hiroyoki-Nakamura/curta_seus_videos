@@ -3,14 +3,14 @@ export class VideoContainer {
     private favorite!: HTMLDivElement;
     private videoKey: string;
 
-    constructor(private videoData: {title: string, url: string}){
+    constructor(private videoData: { title: string, url: string }) {
         this.content = document.createElement('div');
         this.content.classList.add('video-content');
         this.videoKey = `favorite_${this.videoData.title}_${this.videoData.url}`;
         this.render();
     }
 
-    private render(){
+    private render() {
         const videoContent = document.createElement('video');
         videoContent.src = this.videoData.url;
         videoContent.controls = true;
@@ -21,7 +21,7 @@ export class VideoContainer {
             this.toggleFavorite();
             this.updateFavoriteClass();
         });
-        
+
         const isFavorite = this.loadFavoriteState();
         this.favorite.classList.toggle('favorite-active', isFavorite);
         this.updateFavoriteClass();
@@ -50,15 +50,15 @@ export class VideoContainer {
         localStorage.setItem('favorites', JSON.stringify(favorites));
     }
 
-    isFavorite(): boolean {
+    public isFavorite(): boolean {
         return this.favorite.classList.contains('favorite-active');
     }
 
-    getVideo(): HTMLDivElement {
+    public getVideo(): HTMLDivElement {
         return this.content;
     }
 
-    getFavorites(): HTMLDivElement {
+    public getFavorites(): HTMLDivElement {
         return this.favorite;
     }
 }

@@ -1,131 +1,127 @@
 import { VideoContainer } from "./VideoContainer";
-/* import { fetchVideosFromBFF } from '../services/searchVideos'; */
+import { fetchVideosFromBFF } from "../services/searchVideos";
 
 export class GridContainer {
     private grids: HTMLDivElement[];
     private currentPage: number;
     private videosPerPage: number;
-    private allVideos: {title: string, url: string}[] = [];
-    private displayedVideos: {title: string, url: string}[] = [];
+    private allVideos: { title: string, url: string }[] = [];
+    private displayedVideos: { title: string, url: string }[] = [];
     private paginationContainer!: HTMLDivElement;
 
-    constructor(private containerId: string, private numGrids: number){
+    constructor(private containerId: string, private numGrids: number) {
         this.grids = [];
         this.currentPage = 1;
-        this.videosPerPage = numGrids * 3;
+        this.videosPerPage = 12;
         this.initGrids();
     }
 
-/*     public async searchVideos(query: string) {
-        try {
-            const videos = await fetchVideosFromBFF(query);
-            this.setVideos(videos);
-        } catch (error) {
-            console.error('Erro ao buscar vídeos:', error);
-        }
-    } */
-
-    private initGrids(){
+    private initGrids() {
         const container = document.getElementById(this.containerId);
         if (!container) return;
 
-        for(let i = 0; i < this.numGrids; i++){
+        for (let i = 0; i < this.numGrids; i++) {
             const grid = document.createElement('div');
             grid.classList.add('grid-item');
             container.appendChild(grid);
             this.grids.push(grid);
         }
 
-        
-    this.paginationContainer = document.createElement('div');
-    this.paginationContainer.id = 'pagination';
-    container.appendChild(this.paginationContainer);
+        this.paginationContainer = document.createElement('div');
+        this.paginationContainer.id = 'pagination';
+        container.appendChild(this.paginationContainer);
     }
 
-
-    public setVideos(videos: {title: string, url: string}[]) {
+    public setVideos(videos: { title: string, url: string }[]) {
         this.allVideos = videos;
         this.searchVideos('');
     }
 
-    public searchVideos(query: string) {
-        this.displayedVideos = this.allVideos.filter(video =>
-            video.title.toLowerCase().includes(query.toLowerCase())
-        );
-        this.currentPage = 1;
-        this.renderVideos();
+    public async searchVideos(query: string) {
+        try {
+            const videos = await fetchVideosFromBFF(query);
+            this.allVideos = videos;
+            this.displayedVideos = this.allVideos.slice(0, this.videosPerPage);
+            this.currentPage = 1;
+            this.renderVideos();
+        } catch (error) {
+            console.error('Erro ao buscar vídeos:', error);
+        }
     }
 
     public renderVideos() {
-        const start = (this.currentPage -1) * this.videosPerPage;
+        const start = (this.currentPage - 1) * this.videosPerPage;
         const end = start + this.videosPerPage;
-        const videosToRender = this.displayedVideos.slice(start, end);
+        this.displayedVideos = this.allVideos.slice(start, end);
 
         this.grids.forEach(grid => grid.innerHTML = '');
+        const videosToRender = this.displayedVideos.slice(start, end);
 
         videosToRender.forEach((videoData, index) => {
             const grid = this.grids[index % this.numGrids];
             const videoComponent = new VideoContainer(videoData);
-            grid.appendChild(videoComponent.getVideo())
+            grid.appendChild(videoComponent.getVideo());
 
             const favorite = videoComponent.getFavorites();
             favorite.addEventListener('click', () => {
-                if(videoComponent.isFavorite()) {
+                if (videoComponent.isFavorite()) {
                     favorite.classList.remove('favorite-active');
                 } else {
-                    favorite.classList.add('favorite-active')
+                    favorite.classList.add('favorite-active');
                 }
-            })
-        })
-        this.renderPagination()
+            });
+        });
+
+        this.renderPagination();
     }
 
     private renderPagination() {
-        const allPages = Math.ceil(this.displayedVideos.length / this.videosPerPage);
+        const allPages = Math.ceil(this.allVideos.length / this.videosPerPage);
         this.paginationContainer.innerHTML = '';
 
         const createPageButton = (page: number, text: string) => {
             const button = document.createElement('button');
             button.textContent = text;
             button.className = (page === this.currentPage) ? 'active' : '';
-            button.addEventListener('click', () =>{
+            button.addEventListener('click', () => {
                 this.currentPage = page;
                 this.renderVideos();
-            })
+            });
             return button;
-        }
-        if (allPages <= 3){
-            for (let i =1; i <= allPages; i++){
+        };
+
+        if (allPages <= 3) {
+            for (let i = 1; i <= allPages; i++) {
                 this.paginationContainer.appendChild(createPageButton(i, i.toString()));
             }
         } else {
             if (this.currentPage > 1) {
-                this.paginationContainer.appendChild(createPageButton(1,'1'));
+                this.paginationContainer.appendChild(createPageButton(1, '1'));
                 if (this.currentPage > 2) {
-                    this.paginationContainer.appendChild(createPageButton(this.currentPage -1, '...'))
+                    this.paginationContainer.appendChild(createPageButton(this.currentPage - 1, '...'));
                 }
             }
 
-            this.paginationContainer.appendChild(createPageButton(this.currentPage, this.currentPage.toString()))
+            this.paginationContainer.appendChild(createPageButton(this.currentPage, this.currentPage.toString()));
 
-            if(this.currentPage < allPages) {
-                if(this.currentPage < allPages -1) {
-                    this.paginationContainer.appendChild(createPageButton(this.currentPage + 1, '...'))
+            if (this.currentPage < allPages) {
+                if (this.currentPage < allPages - 1) {
+                    this.paginationContainer.appendChild(createPageButton(this.currentPage + 1, '...'));
                 }
-                this.paginationContainer.appendChild(createPageButton(allPages, allPages.toString()))
+                this.paginationContainer.appendChild(createPageButton(allPages, allPages.toString()));
             }
         }
     }
 
     public nextPage() {
-        if((this.currentPage * this.videosPerPage) < this.displayedVideos.length){
+        if ((this.currentPage * this.videosPerPage) < this.allVideos.length) {
             this.currentPage++;
             this.renderVideos();
         }
     }
 
     public prevPage() {
-        if(this.currentPage > 1) {
+        if (this.currentPage > 1) {
             this.currentPage--;
             this.renderVideos();
         }
