@@ -36,6 +36,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    alias: {
+      axios: 'axios'
+    }
   },
   devServer: {
     static: {

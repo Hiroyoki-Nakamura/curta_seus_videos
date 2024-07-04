@@ -1,16 +1,16 @@
-// Importe o Axios e outras dependências necessárias
 import axios from 'axios';
 
-// Crie uma instância do Axios com a URL base da API do YouTube
+const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
+
 const axiosInstance = axios.create({
     baseURL: 'https://www.googleapis.com/youtube/v3/',
     headers: {
         'Content-Type': 'application/json',
-        // Aqui você pode adicionar outros headers necessários, como chave de API, etc.
+        'Authorization': `Bearer ${YOUTUBE_API_KEY}`,
     },
     params: {
-        part: 'snippet',  // Exemplo de parâmetro comum
-        type: 'video',    // Exemplo de parâmetro comum
+        part: 'snippet', 
+        type: 'video',   
     },
 });
 

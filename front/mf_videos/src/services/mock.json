@@ -1,0 +1,24 @@
+{
+    "items": [
+      {
+        "snippet": {
+          "title": "Video 1",
+          "thumbnails": {
+            "medium": {
+              "url": "https://via.placeholder.com/320x180.png?text=Video+1"
+            }
+          }
+        }
+      },
+      {
+        "snippet": {
+          "title": "Video 2",
+          "thumbnails": {
+            "medium": {
+              "url": "https://via.placeholder.com/320x180.png?text=Video+2"
+            }
+          }
+        }
+      }
+    ]
+  }
