@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const router = express.Router();
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/search', async (req: Request, res: Response) => {
   const searchTerm = req.query.q as string;
   const apiKey = process.env.YOUTUBE_API_KEY;
 
