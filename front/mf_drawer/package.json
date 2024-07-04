@@ -2,7 +2,7 @@
   "name": "mf_videos",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
