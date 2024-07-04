@@ -11,6 +11,17 @@ export class VideoContainer {
     }
 
     private render() {
+        const thumbnailUrl = this.videoData.url; 
+        
+        const thumbnail = document.createElement('img');
+        thumbnail.src = thumbnailUrl;
+        thumbnail.alt = this.videoData.title;
+        thumbnail.classList.add('video-thumbnail');
+        
+        thumbnail.addEventListener('click', () => {
+            this.playVideo(this.videoData.url);
+        });
+
         const videoContent = document.createElement('video');
         videoContent.src = this.videoData.url;
         videoContent.controls = true;
@@ -26,8 +37,22 @@ export class VideoContainer {
         this.favorite.classList.toggle('favorite-active', isFavorite);
         this.updateFavoriteClass();
 
-        this.content.appendChild(videoContent);
+        this.content.appendChild(thumbnail);
         this.content.appendChild(this.favorite);
+    }
+
+    private playVideo(videoUrl: string) {
+        const playerContainer = document.getElementById('video-player');
+        if (playerContainer) {
+            playerContainer.innerHTML = `
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/${this.extractVideoId(videoUrl)}" frameborder="0" allowfullscreen></iframe>
+            `;
+        }
+    }
+
+    private extractVideoId(videoUrl: string): string {
+        const videoId = videoUrl.split('/').pop(); 
+        return videoId || '';
     }
 
     private toggleFavorite() {

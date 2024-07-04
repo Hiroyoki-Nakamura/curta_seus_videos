@@ -90,3 +90,15 @@ video {
     color: white;
     cursor: default;
 }
+
+.video-thumbnail img {
+    width: 100%;
+    height: auto;
+}
+
+#video-player {
+    width: 560px;
+    height: 315px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
