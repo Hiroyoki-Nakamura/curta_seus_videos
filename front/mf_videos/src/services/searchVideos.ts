@@ -9,9 +9,19 @@
                 title: item.snippet.title,
                 url: item.snippet.thumbnails.medium.url
             }));
-        } catch (error) {
-            console.error('Erro ao buscar vídeos do BFF:', error);
-            return []; 
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response && error.response.status === 403) {
+                console.warn('Cota da API excedida. Usando dados de mock.');
+    
+                const mockData = require('./mock.json');
+                return mockData.items.map((item: any) => ({
+                    title: item.snippet.title,
+                    url: item.snippet.thumbnails.medium.url
+                }));
+            } else {
+                console.error('Erro ao buscar vídeos do BFF:', error);
+                return []; 
+            }
         }
     }
     
