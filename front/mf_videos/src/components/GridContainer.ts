@@ -1,12 +1,12 @@
-import { VideoContainer } from "./VideoContainer";
-import { fetchVideosFromBFF } from "../services/searchVideos";
+import { VideoContainer } from './VideoContainer';
+import { fetchVideosFromBFF, loadMockVideos } from '../services/searchVideos';
 
 export class GridContainer {
     private grids: HTMLDivElement[];
     private currentPage: number;
     private videosPerPage: number;
-    private allVideos: { title: string, url: string }[] = [];
-    private displayedVideos: { title: string, url: string }[] = [];
+    private allVideos: { title: string; url: string }[] = [];
+    private displayedVideos: { title: string; url: string }[] = [];
     private paginationContainer!: HTMLDivElement;
 
     constructor(private containerId: string, private numGrids: number) {
@@ -32,21 +32,41 @@ export class GridContainer {
         container.appendChild(this.paginationContainer);
     }
 
-    public setVideos(videos: { title: string, url: string }[]) {
+    public async setVideos(videos: { title: string; url: string }[]) {
         this.allVideos = videos;
-        this.searchVideos('');
+        await this.searchVideos('');
     }
 
     public async searchVideos(query: string) {
         try {
-            const videos = await fetchVideosFromBFF(query);
+            const videos = await fetchVideosFromBFF(query, true);
             this.allVideos = videos;
             this.displayedVideos = this.allVideos.slice(0, this.videosPerPage);
             this.currentPage = 1;
             this.renderVideos();
         } catch (error) {
-            console.error('Erro ao buscar vídeos:', error);
+            console.error('Erro ao buscar vídeos da API:', error);
+            console.warn('Usando dados de mock.');
+            this.allVideos = loadMockVideos(query);
+            this.displayedVideos = this.allVideos.slice(0, this.videosPerPage);
+            this.currentPage = 1;
+            this.renderVideos();
         }
+    }
+
+    private setupSearchInput() {
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.placeholder = 'Digite o termo de busca';
+        searchInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                this.searchVideos((event.target as HTMLInputElement).value.trim());
+            }
+        });
+
+        const container = document.getElementById(this.containerId);
+        container?.appendChild(searchInput);
     }
 
     public renderVideos() {
@@ -54,10 +74,8 @@ export class GridContainer {
         const end = start + this.videosPerPage;
         this.displayedVideos = this.allVideos.slice(start, end);
 
-        this.grids.forEach(grid => grid.innerHTML = '');
-        const videosToRender = this.displayedVideos.slice(start, end);
-
-        videosToRender.forEach((videoData, index) => {
+        this.grids.forEach((grid) => (grid.innerHTML = ''));
+        this.displayedVideos.forEach((videoData, index) => {
             const grid = this.grids[index % this.numGrids];
             const videoComponent = new VideoContainer(videoData);
             grid.appendChild(videoComponent.getVideo());
@@ -82,7 +100,7 @@ export class GridContainer {
         const createPageButton = (page: number, text: string) => {
             const button = document.createElement('button');
             button.textContent = text;
-            button.className = (page === this.currentPage) ? 'active' : '';
+            button.className = page === this.currentPage ? 'active' : '';
             button.addEventListener('click', () => {
                 this.currentPage = page;
                 this.renderVideos();
@@ -114,7 +132,7 @@ export class GridContainer {
     }
 
     public nextPage() {
-        if ((this.currentPage * this.videosPerPage) < this.allVideos.length) {
+        if (this.currentPage * this.videosPerPage < this.allVideos.length) {
             this.currentPage++;
             this.renderVideos();
         }

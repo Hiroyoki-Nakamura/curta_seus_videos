@@ -1,27 +1,19 @@
-import './styles/main.scss'
+import './styles/main.scss';
 import { GridContainer } from './components/GridContainer';
-import { fetchVideosFromBFF } from './services/searchVideos';
 
-const gridContainer = new GridContainer('container', 4);
+document.addEventListener('DOMContentLoaded', () => {
+    const gridContainer = new GridContainer('container', 4);
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
 
-gridContainer.setVideos([]);
+    gridContainer.setVideos([]); 
 
-const searchInput = document.getElementById('search-input') as HTMLInputElement;
-if (searchInput) {
-    searchInput.addEventListener('keypress', async (event) => {
+    searchInput.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
             const query = searchInput.value.trim();
-            if (query !== '') {
-                const searchedVideos = await fetchVideosFromBFF(query);
-                gridContainer.setVideos(searchedVideos);
-            } else {
-                console.log('Digite um termo para buscar vídeos.');
-            }
+            gridContainer.searchVideos(query); 
         }
     });
-} else {
-    console.error('Elemento #search-input não encontrado.');
-}
 
-document.getElementById('nextPage')?.addEventListener('click', () => gridContainer.nextPage());
-document.getElementById('prevPage')?.addEventListener('click', () => gridContainer.prevPage());
+    document.getElementById('nextPage')?.addEventListener('click', () => gridContainer.nextPage());
+    document.getElementById('prevPage')?.addEventListener('click', () => gridContainer.prevPage());
+});

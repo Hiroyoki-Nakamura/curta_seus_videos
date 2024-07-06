@@ -35,7 +35,7 @@ services:
     ports:
       - "3001:3000"
     env_file:
-      - "./bff/.env"
+      - ./bff/videos_services/.env
 
   nginx:
     image: nginx:latest
