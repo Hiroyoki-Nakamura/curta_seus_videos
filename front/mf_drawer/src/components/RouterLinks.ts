@@ -1,14 +1,14 @@
 export class RouterLinks {
-    private badgeCount: number;
+  private badgeCount: number;
 
-    constructor(count: number) {
-        this.badgeCount = count;
-    }
+  constructor(count: number) {
+    this.badgeCount = count;
+  }
 
-    render(): HTMLElement {
-        const routersContainer = document.createElement('div');
-        routersContainer.classList.add('icon-container');
-        routersContainer.innerHTML = `
+  render(): HTMLElement {
+    const routersContainer = document.createElement("div");
+    routersContainer.classList.add("icon-container");
+    routersContainer.innerHTML = `
             <a href="#">
                 <h3>Vídeos</h3>
             </a>
@@ -17,6 +17,6 @@ export class RouterLinks {
                 <span class="badge">${this.badgeCount}</span>
             </a>
         `;
-        return routersContainer;
-    }
+    return routersContainer;
+  }
 }
