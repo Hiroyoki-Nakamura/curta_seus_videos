@@ -7,8 +7,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "./src", "./types"],
   "exclude": ["node_modules", "dist"]
 }
