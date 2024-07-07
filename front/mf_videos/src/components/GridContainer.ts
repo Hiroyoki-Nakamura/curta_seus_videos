@@ -16,6 +16,14 @@ export class GridContainer {
         this.initGrids();
     }
 
+    public getAllVideos(): { title: string; url: string }[] {
+        return this.allVideos;
+    }
+
+    public getDisplayedVideos(): { title: string; url: string }[] {
+        return this.displayedVideos;
+    }
+
     private initGrids() {
         const container = document.getElementById(this.containerId);
         if (!container) return;
@@ -52,21 +60,6 @@ export class GridContainer {
             this.currentPage = 1;
             this.renderVideos();
         }
-    }
-
-    private setupSearchInput() {
-        const searchInput = document.createElement('input');
-        searchInput.type = 'text';
-        searchInput.placeholder = 'Digite o termo de busca';
-        searchInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                this.searchVideos((event.target as HTMLInputElement).value.trim());
-            }
-        });
-
-        const container = document.getElementById(this.containerId);
-        container?.appendChild(searchInput);
     }
 
     public renderVideos() {
