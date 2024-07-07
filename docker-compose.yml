@@ -16,7 +16,7 @@ services:
     build:
       context: ./front/mf_videos
     ports:
-      - "8001:3000"
+      - "8001:8080"
     volumes:
       - ./front/mf_videos/src:/app/src
     depends_on:
