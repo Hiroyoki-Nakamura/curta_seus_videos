@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/dist/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/dist/main.css" />
     <title>Vídeos</title>
-</head>
-<body>
+  </head>
+  <body>
     <h2>Vídeos</h2>
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Pesquisar">
-        <i class="fas fa-search search-icon"></i>
+      <input type="text" id="search-input" placeholder="Pesquisar" />
+      <i class="fas fa-search search-icon" id="search-icon"></i>
+      <button id="search-button" aria-label="Search">
+        <i class="fas fa-search"></i>
+      </button>
     </div>
     <div id="video-player"></div>
     <div id="container" class="video-container"></div>
     <div id="pagination"></div>
 
     <script src="/dist/bundle.js"></script>
-</body>
+  </body>
 </html>
-
